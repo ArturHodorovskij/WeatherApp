@@ -28,7 +28,7 @@ import androidx.compose.material3.Text
 
 @Composable
 fun HourlyWeatherCard() {
-    val gg = listOf(HourlyWeather())
+    val hourlyWeatherList = listOf(HourlyWeather())
 
     Card(
         modifier = Modifier
@@ -42,9 +42,10 @@ fun HourlyWeatherCard() {
             modifier = Modifier,
             state = rememberLazyListState(),
             contentPadding = PaddingValues(0.dp),
+
         ) {
 
-            items(gg) { item ->
+            items(hourlyWeatherList) { item ->
                 Column(
                     verticalArrangement = Arrangement.SpaceBetween,
                     horizontalAlignment = Alignment.CenterHorizontally,
