@@ -12,5 +12,5 @@ interface WeatherApi {
         @Query("days") days: Int = 7,
         @Query("aqi") aqi: String = "no",
         @Query("alerts") alerts: String = "no"
-    ): WeatherResponse
+    ): WeatherResponse?
 }
