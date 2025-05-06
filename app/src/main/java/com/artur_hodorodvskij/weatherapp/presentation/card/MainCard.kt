@@ -1,4 +1,4 @@
-package com.artur_hodorodvskij.weatherapp.presentation.screen
+package com.artur_hodorodvskij.weatherapp.presentation.card
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -19,11 +19,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.artur_hodorodvskij.weatherapp.R
+import com.artur_hodorodvskij.weatherapp.data.WeatherResponse
 import com.artur_hodorodvskij.weatherapp.ui.theme.CardColor
 
 @Composable
-fun MainCard() {
+fun MainCard(weatherData: WeatherResponse) {
+    val current = weatherData.current
+    val condition  = current.condition
+    val location =weatherData.location
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -40,12 +45,12 @@ fun MainCard() {
                 .padding(10.dp)
 
         ) {
-//                AsyncImage(
-//                    model = "https://cdn.weatherapi.com/weather/64x64/night/113.png",
-//                    contentDescription = "im2",
-//                    modifier = Modifier
-//                        .size(200.dp)
-//                )
+                AsyncImage(
+                    model = "https:${condition.icon}",
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(200.dp)
+                )
 
             Row(
                 modifier = Modifier
@@ -55,34 +60,34 @@ fun MainCard() {
 
                 Text(
                     fontSize = 16.sp,
-                    text = "27.04.2025 | 21:04",
+                    text = location.localtime,
                     fontWeight = FontWeight.Normal
                 )
 
                 Text(
                     fontSize = 16.sp,
-                    text = "Гродно",
+                    text = location.name,
                     fontWeight = FontWeight.Normal
                 )
 
             }
 
-            Image(
-                modifier = Modifier
-                    .size(128.dp),
-                painter = painterResource(R.drawable.partlycloudy),
-                contentDescription = null
-            )
+//            Image(
+//                modifier = Modifier
+//                    .size(128.dp),
+//                painter = painterResource(R.drawable.partlycloudy),
+//                contentDescription = null
+//            )
 
             Text(
                 fontSize = 40.sp,
-                text = "8°C",
+                text = "${current.temp_c}°C",
                 fontWeight = FontWeight.Normal
             )
 
             Text(
                 fontSize = 18.sp,
-                text = "Переменная облачность ",
+                text = condition.text,
                 fontWeight = FontWeight.Normal
             )
 
@@ -90,8 +95,3 @@ fun MainCard() {
     }
 }
 
-    @Preview(showBackground = true)
-    @Composable
-    fun PreviewMainCard() {
-        MainCard()
-    }

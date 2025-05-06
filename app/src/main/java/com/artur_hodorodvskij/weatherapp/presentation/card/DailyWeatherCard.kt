@@ -1,4 +1,4 @@
-package com.artur_hodorodvskij.weatherapp.presentation.screen
+package com.artur_hodorodvskij.weatherapp.presentation.card
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -20,12 +20,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.artur_hodorodvskij.weatherapp.data.DailyWeather
+import com.artur_hodorodvskij.weatherapp.data.WeatherResponse
 import com.artur_hodorodvskij.weatherapp.ui.theme.CardColor
 
 @Composable
-fun DailyWeatherCard() {
-    val dailyWeatherList = listOf(DailyWeather())
+fun DailyWeatherCard(weatherData: WeatherResponse) {
+
+    val current = weatherData.current
+    val condition = current.condition
+    val location = weatherData.location
+    val forecastDay = weatherData.forecast.forecastday
+
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -40,7 +48,7 @@ fun DailyWeatherCard() {
                 .padding(10.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            dailyWeatherList.forEach { item ->
+            forecastDay.forEach { item ->
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center,
@@ -58,11 +66,13 @@ fun DailyWeatherCard() {
                             modifier = Modifier
                         )
                     }
-                    Box(modifier = Modifier.weight(2f),
-                        contentAlignment = Alignment.CenterStart) {
+                    Box(
+                        modifier = Modifier.weight(2f),
+                        contentAlignment = Alignment.CenterStart
+                    ) {
                         Text(
                             fontSize = 14.sp,
-                            text = item.dayName,
+                            text = item.date, //TODO добавить преобразование в день недели
                             fontWeight = FontWeight.Medium,
                             modifier = Modifier
                         )
@@ -72,18 +82,30 @@ fun DailyWeatherCard() {
                         modifier = Modifier.weight(3f),
                         contentAlignment = Alignment.Center
                     ) {
-                        Image(
+
+//                        Image(
+//                            modifier = Modifier
+//                                .size(40.dp),
+//                            painter = painterResource(item.image),
+//                            contentDescription = null
+//                        )
+
+
+                        AsyncImage(
+                            model = "https:${item.day.condition.icon}",
+                            contentDescription = null,
                             modifier = Modifier
-                                .size(40.dp),
-                            painter = painterResource(item.image),
-                            contentDescription = null
+                                .size(40.dp)
                         )
+
                     }
-                    Box(modifier = Modifier.weight(1f),
-                        contentAlignment = Alignment.CenterEnd) {
+                    Box(
+                        modifier = Modifier.weight(1f),
+                        contentAlignment = Alignment.CenterEnd
+                    ) {
                         Text(
                             fontSize = 14.sp,
-                            text = "${item.nightTemperature} / ${item.daytimeTemperature}",
+                            text = "${item.day.maxtemp_c} / ${item.day.mintemp_c}",
                             fontWeight = FontWeight.Medium,
                             modifier = Modifier
                         )
@@ -95,8 +117,3 @@ fun DailyWeatherCard() {
 }
 
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewHourlyDailyCard() {
-    DailyWeatherCard()
-}

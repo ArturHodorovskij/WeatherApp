@@ -1,5 +1,6 @@
 package com.artur_hodorodvskij.weatherapp.presentation.screen
 
+import androidx.compose.ui.tooling.data.EmptyGroup.location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,7 +14,9 @@ class MainScreenViewModel : ViewModel() {
     private val _state = MutableLiveData<WeatherState>()
     val state: LiveData<WeatherState> = _state
 
-    private fun loadData(location: String) {
+
+
+     fun loadData(location: String) {
         _state.value = WeatherState.Loading
         viewModelScope.launch {
             try {
@@ -29,6 +32,12 @@ class MainScreenViewModel : ViewModel() {
 
         }
     }
+
+    fun reloadData(location: String) {
+//        loadData(ROOT_NEWS_TAG)
+        loadData(location)
+    }
+
 
     private fun handleError(errorMessage: String) {
         _state.value = WeatherState.Error(errorMessage = errorMessage)

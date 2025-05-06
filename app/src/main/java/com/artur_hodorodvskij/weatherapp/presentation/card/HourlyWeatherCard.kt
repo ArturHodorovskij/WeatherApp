@@ -1,4 +1,4 @@
-package com.artur_hodorodvskij.weatherapp.presentation.screen
+package com.artur_hodorodvskij.weatherapp.presentation.card
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -24,10 +24,11 @@ import androidx.compose.ui.unit.sp
 import com.artur_hodorodvskij.weatherapp.data.HourlyWeather
 import com.artur_hodorodvskij.weatherapp.ui.theme.CardColor
 import androidx.compose.material3.Text
+import com.artur_hodorodvskij.weatherapp.data.WeatherResponse
 
 
 @Composable
-fun HourlyWeatherCard() {
+fun HourlyWeatherCard(weatherData: WeatherResponse) {
     val hourlyWeatherList = listOf(HourlyWeather())
 
     Card(

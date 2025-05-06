@@ -1,7 +1,6 @@
-package com.artur_hodorodvskij.weatherapp.presentation.screen
+package com.artur_hodorodvskij.weatherapp.presentation.card
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,10 +16,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.artur_hodorodvskij.weatherapp.data.WeatherResponse
 import com.artur_hodorodvskij.weatherapp.ui.theme.CardColor
 
 @Composable
-fun DetailsCard() {
+fun DetailsCard(weatherData: WeatherResponse) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
